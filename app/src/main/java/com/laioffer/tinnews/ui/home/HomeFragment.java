@@ -44,7 +44,9 @@ public class HomeFragment extends Fragment {
         viewModel.getTopHeadlines().observe(
                 getViewLifecycleOwner(),
                 newsResponse -> {
-                    if(newsResponse!=null) Log.d("HomeFragment", newsResponse.toString());
+                    if(newsResponse!=null) {
+                            //Log.d("HomeFragment", newsResponse.toString());
+                    }
                 }
         );
     }
