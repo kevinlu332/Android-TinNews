@@ -58,5 +58,7 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
     //picasso image library
     implementation 'com.squareup.picasso:picasso:2.71828'
+    //cardStackView in home page
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 
 }
