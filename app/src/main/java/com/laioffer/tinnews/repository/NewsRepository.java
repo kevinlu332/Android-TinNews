@@ -1,10 +1,14 @@
 package com.laioffer.tinnews.repository;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.laioffer.tinnews.TinNewsApplication;
+import com.laioffer.tinnews.database.TinNewsDatabase;
+import com.laioffer.tinnews.model.Article;
 import com.laioffer.tinnews.model.NewsResponse;
 import com.laioffer.tinnews.network.NewsApi;
 import com.laioffer.tinnews.network.RetrofitClient;
@@ -15,9 +19,11 @@ import retrofit2.Response;
 
 public class NewsRepository {
     private final NewsApi newsApi;
-
+    private final TinNewsDatabase database;
+    //constructor
     public NewsRepository(Context context) {
         newsApi = RetrofitClient.newInstance(context).create(NewsApi.class);
+        database = ((TinNewsApplication)context.getApplicationContext()).getDatabase();
     }
 
     //implement getTopHeadlines API
@@ -54,4 +60,39 @@ public class NewsRepository {
         });
         return everyThingLiveData;
     }
+
+    //use an AsyncTask to dispatch the query work to a background thread.
+    private static class FavoriteAsyncTask extends AsyncTask<Article, Void, Boolean>{
+        private final TinNewsDatabase database;
+        private final MutableLiveData<Boolean> liveData;
+
+        private FavoriteAsyncTask(TinNewsDatabase database, MutableLiveData<Boolean> liveData) {
+            this.database = database;
+            this.liveData = liveData;
+        }
+
+        @Override
+        protected Boolean doInBackground(Article... articles) {
+            //in a background thread
+            Article article = articles[0];
+            try{
+                database.articleDao().saveArticle(article);
+            }catch (Exception e){
+                return  false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            liveData.setValue(success);
+        }
+    }
+    //add an API to do the action of favorite an Article, in which it execute the background async task
+    public LiveData<Boolean> favoriteArticle(Article article) {
+        MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
+        new FavoriteAsyncTask(database, resultLiveData).execute(article);
+        return resultLiveData;
+    }
+
 }
