@@ -35,7 +35,8 @@
         android:name="com.laioffer.tinnews.ui.details.DetailsFragment"
         android:label="@string/title_details"
         tools:layout="@layout/fragment_details">
-        <argument android:name="article"
+        <argument
+            android:name="article"
             app:argType="com.laioffer.tinnews.model.Article"/>
 
     </fragment>

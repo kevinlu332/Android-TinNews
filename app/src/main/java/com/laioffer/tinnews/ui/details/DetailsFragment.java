@@ -1,5 +1,7 @@
 package com.laioffer.tinnews.ui.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -43,6 +45,14 @@ public class DetailsFragment extends Fragment {
         binding.detailsDescriptionTextView.setText(article.description);
         binding.detailsTitleTextView.setText(article.title);
         Picasso.get().load(article.urlToImage).into(binding.detailsImageView);
-
+        binding.urlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url= article.url;
+                Uri uri = Uri.parse(url);
+                Intent intent= new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -62,6 +62,7 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         holder.itemTitleTextView.setText(article.title);
         //add Picasso image
         Picasso.get().load(article.urlToImage).into(holder.itemImageView);
+        //listener to open detail fragment
         holder.itemView.setOnClickListener(evt -> itemCallback.onOpenDetails(article));
     }
 
