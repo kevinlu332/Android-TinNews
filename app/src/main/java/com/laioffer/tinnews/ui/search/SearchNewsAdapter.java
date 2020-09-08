@@ -46,7 +46,12 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
     @Override
     public void onBindViewHolder(@NonNull SearchNewsViewHolder holder, int position) {
         Article article = articles.get(position);
-        holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
+        if(position==1){
+            holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_border_24dp);
+        }else{
+            holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
+        }
+        //holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
         holder.itemTitleTextView.setText(article.title);
         //add Picasso image
         Picasso.get().load(article.urlToImage).into(holder.itemImageView);

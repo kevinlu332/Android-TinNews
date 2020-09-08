@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment implements CardStackListener {
         //return inflater.inflate(R.layout.fragment_home, container, false);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment implements CardStackListener {
         CardSwipeAdapter swipeAdapter = new CardSwipeAdapter();
         layoutManager = new CardStackLayoutManager(requireContext(), this);//this, is for listener
         layoutManager.setStackFrom(StackFrom.Top);
-        binding.homeCardStackView.setLayoutManager(layoutManager);;
+        binding.homeCardStackView.setLayoutManager(layoutManager);
         binding.homeCardStackView.setAdapter(swipeAdapter);
 
         //Handle like unlike button clicks
