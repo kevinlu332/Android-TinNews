@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
 
         NavigationUI.setupWithNavController(navView, navController);//连接navView和navController
-        NavigationUI.setupActionBarWithNavController(this, navController);
+        //NavigationUI.setupActionBarWithNavController(this, navController);
+        RetrofitClient.newInstance(this).create(NewsApi.class);
 
 //        //Have a Test: the lower is the test part
 //       NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class);
