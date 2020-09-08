@@ -1,3 +1,3 @@
 # Android-TinNews
-aka: NewsSwipe
+aka: NewsSwipe: 
 a Tinder-like News Android App 
