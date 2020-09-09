@@ -50,20 +50,33 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         return new SearchNewsViewHolder(view);
     }
 
-    @Override
+        @Override
     public void onBindViewHolder(@NonNull SearchNewsViewHolder holder, int position) {
         Article article = articles.get(position);
-        if(position==1){
+        holder.itemTitleTextView.setText(article.title);
+        if(!article.favorite){
             holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_border_24dp);
         }else{
             holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
         }
-        //holder.favoriteImageView.setImageResource(R.drawable.ic_favorite_24dp);
-        holder.itemTitleTextView.setText(article.title);
+
+        holder.favoriteImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                article.favorite = !article.favorite;
+                updateItemAtIndex(position, article);
+            }
+        });
         //add Picasso image
-        Picasso.get().load(article.urlToImage).into(holder.itemImageView);
+        if(article.urlToImage!=null){
+            Picasso.get().load(article.urlToImage).into(holder.itemImageView);
+        }
         //listener to open detail fragment
         holder.itemView.setOnClickListener(evt -> itemCallback.onOpenDetails(article));
+    }
+    public void updateItemAtIndex(int position, Article article){
+        articles.set(position,article);
+        notifyItemRangeChanged(position,1);
     }
 
     @Override
