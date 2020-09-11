@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name"> 滑·新闻</string>
     <string name="title_home">主页</string>
     <string name="title_save">收藏</string>
     <string name="title_search">搜索</string>
